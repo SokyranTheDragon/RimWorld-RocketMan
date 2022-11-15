@@ -9,10 +9,6 @@ namespace Soyuz
 {
     public static class Context
     {
-        public static CameraZoomRange ZoomRange;
-
-        public static CellRect CurViewRect;
-
         public static SoyuzSettings Settings;
 
         public static Pawn ProfiledPawn;
@@ -30,28 +26,5 @@ namespace Soyuz
         public static readonly Dictionary<ThingDef, RaceSettings> DilationByDef = new Dictionary<ThingDef, RaceSettings>();
 
         public static readonly Dictionary<JobDef, JobSettings> JobDilationByDef = new Dictionary<JobDef, JobSettings>();
-
-        public static int DilationRate
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get
-            {
-                switch (Context.ZoomRange)
-                {
-                    default:
-                        return 1;
-                    case CameraZoomRange.Closest:
-                        return 60;
-                    case CameraZoomRange.Close:
-                        return 20;
-                    case CameraZoomRange.Middle:
-                        return 15;
-                    case CameraZoomRange.Far:
-                        return 15;
-                    case CameraZoomRange.Furthest:
-                        return 7;
-                }
-            }
-        }
     }
 }
