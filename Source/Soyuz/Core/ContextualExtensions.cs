@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Multiplayer.API;
 using RimWorld;
 using RocketMan;
 using UnityEngine;
@@ -129,13 +130,12 @@ namespace Soyuz
 
             try
             {
-                if (true
-                    && Prefs.DevMode
-                    && RocketDebugPrefs.Debug
-                    && RocketDebugPrefs.LogData
-                    && RocketEnvironmentInfo.IsDevEnv
-                    && Time.frameCount - RocketStates.LastFrame < 60
-                    && pawn == Context.ProfiledPawn)
+                if (Prefs.DevMode && 
+                    RocketDebugPrefs.Debug && 
+                    RocketDebugPrefs.LogData && 
+                    RocketEnvironmentInfo.IsDevEnv && 
+                    Time.frameCount - RocketStates.LastFrame < 60 && 
+                    pawn == Context.ProfiledPawn)
                 {
                     UpdateModels(pawn);
                 }

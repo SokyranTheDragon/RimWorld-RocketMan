@@ -14,7 +14,7 @@ public static class IncreaseMaxAllowedPacketId
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instr)
     {
         var finished = false;
-        
+
         foreach (var ci in instr)
         {
             yield return ci;
