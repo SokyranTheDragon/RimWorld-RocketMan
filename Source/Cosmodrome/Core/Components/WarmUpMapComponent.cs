@@ -103,7 +103,7 @@ namespace RocketMan
 
             if (finished && tick == integrityGameTick)
             {
-                Log.Message("ROCKETMAN: Position verfication started!");
+                RocketMan.Logger.Message("ROCKETMAN: Position verfication started!");
                 PopPawnsPosition();
                 if (RocketPrefs.PauseAfterWarmup && !Find.TickManager.Paused)
                     Find.TickManager.Pause();
@@ -128,7 +128,7 @@ namespace RocketMan
             finished = true;
             current = null;
             PopSettings();
-            Log.Message("ROCKETMAN: <color=red>Warm up</color> Finished for new map!");
+            RocketMan.Logger.Message("ROCKETMAN: <color=red>Warm up</color> Finished for new map!");
         }
 
         public override void MapRemoved()
@@ -153,7 +153,7 @@ namespace RocketMan
                 current = null;
                 finished = true;
                 PopSettings();
-                Log.Message("ROCKETMAN: <color=red>Warm up ABORTED!</color> for new map!");
+                RocketMan.Logger.Message("ROCKETMAN: <color=red>Warm up ABORTED!</color> for new map!");
             }
         }
 
@@ -171,7 +171,7 @@ namespace RocketMan
                 current = this;
                 started = true;
                 startingTicksGame = tick;
-                Log.Message("ROCKETMAN: <color=red>Warm up</color> started for new map!");
+                RocketMan.Logger.Message("ROCKETMAN: <color=red>Warm up</color> started for new map!");
             }
         }
 
