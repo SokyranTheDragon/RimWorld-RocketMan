@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using RimWorld;
 using Verse;
@@ -20,10 +20,7 @@ namespace RocketMan.Gameplay
         private readonly List<CorpseRecord> removalList = new List<CorpseRecord>();
         public int removedThingsCount;
 
-        private readonly Stopwatch stopwatch = new Stopwatch();
-
         private int tick;
-        private CellRect viewRect;
 
         public CorpsesTracker(Map map) : base(map)
         {
@@ -33,14 +30,12 @@ namespace RocketMan.Gameplay
         {
             if (!RocketPrefs.Enabled) return;
             if (!RocketPrefs.CorpsesRemovalEnabled) return;
+            if (!IncreaseMaxAllowedPacketId.finishedSuccessfully) return;
             removalList.Clear();
             int counter = 0;
             if (tick % ScanInterval == 0) FindCorpses();
             if (tick++ % Interval != 0) return;
-            stopwatch.Reset();
-            stopwatch.Start();
-            viewRect = Find.CameraDriver.CurrentViewRect;
-            while (counter < records.Count && stopwatch.ElapsedMilliseconds <= 1)
+            for (var i = 0; counter < records.Count && i < 10; i++)
                 try
                 {
                     var record = records[curIndex];
@@ -58,15 +53,13 @@ namespace RocketMan.Gameplay
                     counter++;
                 }
 
-            stopwatch.Stop();
             foreach (var record in removalList)
             {
                 records.Remove(record);
                 if (record.thing is Corpse corpse) corpses.Remove(corpse);
             }
             removalList.Clear();
-            stopwatch.Restart();
-            while (destroyList.Count > 0 && stopwatch.ElapsedMilliseconds <= 10)
+            for (var i = 0; destroyList.Count > 0 && i < 10; i++)
             {
                 try
                 {
@@ -83,7 +76,6 @@ namespace RocketMan.Gameplay
                     removedThingsCount++;
                 }
             }
-            stopwatch.Stop();
             removalList.Clear();
         }
 
@@ -126,7 +118,7 @@ namespace RocketMan.Gameplay
         {
             var position = record.thing.positionInt;
 
-            if (viewRect.Contains(position))
+            if (MultiplayerCameraLister.PlayerCameras.Any(c => c.CurrentMap == record.thing.Map && c.CameraRect.Contains(position)))
                 record.RegisterVisibility(true);
             else
                 record.RegisterVisibility(false);
