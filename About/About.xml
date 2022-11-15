@@ -38,6 +38,12 @@
 				<steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
 				<downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
 			</li>
+			<li>
+				<packageId>rwmt.Multiplayer</packageId>
+				<displayName>Multiplayer</displayName>
+				<steamWorkshopUrl>steam://url/CommunityFilePage/2606448745</steamWorkshopUrl>
+				<downloadUrl>https://github.com/rwmt/Multiplayer/releases/latest</downloadUrl>
+			</li>
 		</v1.4>
 	</modDependenciesByVersion>
 	<loadAfter>
@@ -58,9 +64,9 @@
 		<li>Argon.VMEuP</li>
 		<li>CETeam.CombatExtended</li>
 		<li>Community.Psychology.UnofficialUpdate</li>
+		<li>rwmt.Multiplayer</li>
 	</loadAfter>
 	<incompatibleWith>
-		<li>rwmt.Multiplayer</li>
 		<li>majorhoff.rimthreaded</li>
 	</incompatibleWith>
 	<description>				
