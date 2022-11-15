@@ -1,9 +1,11 @@
 ﻿using System;
 using HarmonyLib;
+using JetBrains.Annotations;
 
 namespace RocketMan
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+    [MeansImplicitUse(ImplicitUseTargetFlags.WithMembers)]
     public abstract class IPatch : Attribute
     {
         public string targetMethod;

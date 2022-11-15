@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using HarmonyLib;
-using Microsoft.Build.Utilities;
-using RimWorld;
+using JetBrains.Annotations;
 using RocketMan.Tabs;
 using Verse;
 
@@ -211,6 +206,7 @@ namespace RocketMan
         /// The flaged function will be called after the <c>DefDatabase</c> are created. It can be used to performe initialization action on startup.
         /// </summary>
         [AttributeUsage(AttributeTargets.Method)]
+        [MeansImplicitUse]
         public class OnDefsLoaded : Attribute
         {
         }
@@ -219,6 +215,7 @@ namespace RocketMan
         /// The flaged function will be called every tick.
         /// </summary>
         [AttributeUsage(AttributeTargets.Method)]
+        [MeansImplicitUse]
         public class OnTick : Attribute
         {
         }
@@ -227,6 +224,7 @@ namespace RocketMan
         /// The flaged function will be called every 250 ticks.
         /// </summary>
         [AttributeUsage(AttributeTargets.Method)]
+        [MeansImplicitUse]
         public class OnTickRare : Attribute
         {
         }
@@ -235,6 +233,7 @@ namespace RocketMan
         /// The flaged function will be called every 750 ticks.
         /// </summary>
         [AttributeUsage(AttributeTargets.Method)]
+        [MeansImplicitUse]
         public class OnTickRarer : Attribute
         {
         }
@@ -243,6 +242,7 @@ namespace RocketMan
         /// The flaged function will be called every 2000 ticks.
         /// </summary>
         [AttributeUsage(AttributeTargets.Method)]
+        [MeansImplicitUse]
         public class OnTickLong : Attribute
         {
         }
@@ -251,6 +251,7 @@ namespace RocketMan
         /// The flaged function will be called every 8000 ticks.
         /// </summary>
         [AttributeUsage(AttributeTargets.Method)]
+        [MeansImplicitUse]
         public class OnTickLonger : Attribute
         {
         }
@@ -259,6 +260,7 @@ namespace RocketMan
         /// The flaged function will be called after the world is loadeed
         /// </summary>
         [AttributeUsage(AttributeTargets.Method)]
+        [MeansImplicitUse]
         public class OnWorldLoaded : Attribute
         {
         }
@@ -267,6 +269,7 @@ namespace RocketMan
         /// The flaged function will be called after a map is loaded
         /// </summary>
         [AttributeUsage(AttributeTargets.Method)]
+        [MeansImplicitUse]
         public class OnMapLoaded : Attribute
         {
         }
@@ -275,6 +278,7 @@ namespace RocketMan
         /// The flaged function will be called after a map is removed
         /// </summary>
         [AttributeUsage(AttributeTargets.Method)]
+        [MeansImplicitUse]
         public class OnMapDiscarded : Attribute
         {
         }
@@ -283,6 +287,7 @@ namespace RocketMan
         /// The flaged function will be called when a map is being initialized.
         /// </summary>
         [AttributeUsage(AttributeTargets.Method)]
+        [MeansImplicitUse]
         public class OnMapComponentsInitializing : Attribute
         {
         }
@@ -291,6 +296,7 @@ namespace RocketMan
         /// The flaged function will be called on the <c>OnStaticConstructor</c>
         /// </summary>
         [AttributeUsage(AttributeTargets.Method)]
+        [MeansImplicitUse]
         public class OnStaticConstructor : Attribute
         {
         }
@@ -299,6 +305,7 @@ namespace RocketMan
         /// The flaged function will be called when <c>RocketMan</c> is writing or loading settings.
         /// </summary>
         [AttributeUsage(AttributeTargets.Method)]
+        [MeansImplicitUse]
         public class OnScribe : Attribute
         {
         }
@@ -310,6 +317,7 @@ namespace RocketMan
         /// The flaged function will get called outside the scribing function. Thus <c>Scribe.mod</c> will be <c>Inactive</c>
         /// </remarks>
         [AttributeUsage(AttributeTargets.Method)]
+        [MeansImplicitUse]
         public class OnSettingsScribedLoaded : Attribute
         {
         }
@@ -318,6 +326,7 @@ namespace RocketMan
         /// The flaged function will be called as soon as RocketMan is loaded. This is the first thing called post initialization.
         /// </summary>
         [AttributeUsage(AttributeTargets.Method)]
+        [MeansImplicitUse]
         public class OnInitialization : Attribute
         {
         }
@@ -329,6 +338,7 @@ namespace RocketMan
         /// Note: The flaged function must have a return type of <c>ITabContent</c>
         /// </remarks>
         [AttributeUsage(AttributeTargets.Method)]
+        [MeansImplicitUse]
         public class YieldTabContent : Attribute
         {
         }
@@ -337,6 +347,7 @@ namespace RocketMan
         /// The flaged function will be called when debugging is enabled
         /// </summary>
         [AttributeUsage(AttributeTargets.Method)]
+        [MeansImplicitUse]
         public class OnDebugginEnabled : Attribute
         {
         }
@@ -345,6 +356,7 @@ namespace RocketMan
         /// The flaged function will be called when debugging is disabled
         /// </summary>
         [AttributeUsage(AttributeTargets.Method)]
+        [MeansImplicitUse]
         public class OnDebugginDisabled : Attribute
         {
         }
