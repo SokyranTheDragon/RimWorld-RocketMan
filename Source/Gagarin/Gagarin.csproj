@@ -35,8 +35,8 @@
 		<PackageReference Include="Lib.Harmony" Version="2.2.*" ExcludeAssets="runtime" />
 		<PackageReference Include="TaskPubliciser" Version="1.0.3" />
 		<PackageReference Include="XMLDiffPatch" Version="1.0.8.28" ExcludeAssets="runtime" />
-		<PackageReference Include="Microsoft.NETCore.Platforms" Version="5.0.3" />
-		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net472" Version="1.0.2">
+<!--		<PackageReference Include="Microsoft.NETCore.Platforms" Version="5.0.3" />-->
+		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net472" Version="1.0.3">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>

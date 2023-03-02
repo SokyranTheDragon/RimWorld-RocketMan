@@ -49,9 +49,9 @@
 	<description>				
 RocketMan:
 
-NOTE: HugsLib is no longer required for RimWorld 1.4.
-
 RocketMan is mod that is designed to improve RimWorld Performance.
+
+This fork is specifically modified to be used with Multiplayer mod.
 
 Important note: RocketMan should be the last mod in your mod list.
 
@@ -59,6 +59,7 @@ Important note: RocketMan should be the last mod in your mod list.
 2- Bug reports with no logs will not get a response.
 
 Github Link: https://github.com/kbatbouta/RocketMan
+Multiplayer Fork Github Link: https://github.com/SokyranTheDragon/RimWorld-RocketMan
 
 RocketMan is OpenSource and for anyone to use, modify, update.
 

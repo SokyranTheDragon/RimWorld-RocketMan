@@ -95,6 +95,8 @@ namespace RocketMan
 
         public static bool ShowWarmUpPopup = true;
 
+        public static bool EnableMultiplayerCameraPatches = true;
+
         public const float LearningRate = 0.0005f;
     }
 }

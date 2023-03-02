@@ -453,6 +453,26 @@ namespace RocketMan
                    _RocketMan_ProgressBar_Description : _RocketMan_ProgressBar_Description = "RocketMan.ProgressBar.Description".Translate();
         }             
                            
+        private static TaggedString _RocketMan_EnableMultiplayerCameraPatches = null;
+        /// <summary> Keyed string with key <c>RocketMan.EnableMultiplayerCameraPatches</c> with inner text set to:
+        ///
+        /// <code>Enable Multiplayer camera patches</code>
+        /// </summary>       
+        public static TaggedString RocketMan_EnableMultiplayerCameraPatches {
+            get => _RocketMan_EnableMultiplayerCameraPatches != null ? 
+                   _RocketMan_EnableMultiplayerCameraPatches : _RocketMan_EnableMultiplayerCameraPatches = "RocketMan.EnableMultiplayerCameraPatches".Translate();
+        }             
+                           
+        private static TaggedString _RocketMan_EnableMultiplayerCameraPatches_Description = null;
+        /// <summary> Keyed string with key <c>RocketMan.EnableMultiplayerCameraPatches.Description</c> with inner text set to:
+        ///
+        /// <code>If disabled, this will disable sharing of camera data and disable camera related features</code>
+        /// </summary>       
+        public static TaggedString RocketMan_EnableMultiplayerCameraPatches_Description {
+            get => _RocketMan_EnableMultiplayerCameraPatches_Description != null ? 
+                   _RocketMan_EnableMultiplayerCameraPatches_Description : _RocketMan_EnableMultiplayerCameraPatches_Description = "RocketMan.EnableMultiplayerCameraPatches.Description".Translate();
+        }             
+                           
         private static TaggedString _RocketMan_Junk = null;
         /// <summary> Keyed string with key <c>RocketMan.Junk</c> with inner text set to:
         ///

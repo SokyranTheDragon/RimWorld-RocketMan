@@ -73,12 +73,16 @@ namespace RocketMan
             SyncClearCameraData = SyncMethod.Register(typeof(MultiplayerCameraLister), nameof(ClearCameraData));
 
             MpConnectionState.packetHandlers = extendedHandlers;
+            IncreaseMaxAllowedPacketId.insertedPacketHandlers = true;
         }
 
         [Main.OnTickRare]
         public static void TickCamera()
         {
-            if (Multiplayer.Client.Multiplayer.Client == null || CameraUpdateTimer.Elapsed.Seconds < 3 || !IncreaseMaxAllowedPacketId.finishedSuccessfully)
+            // Both features disabled, no point in sending data
+            if (!RocketPrefs.TimeDilation && !RocketPrefs.CorpsesRemovalEnabled)
+                return;
+            if (Multiplayer.Client.Multiplayer.Client == null || CameraUpdateTimer.Elapsed.Seconds < 3 || !IncreaseMaxAllowedPacketId.MultiplayerCameraPatched)
                 return;
 
             var cameraDriver = Find.CameraDriver;

@@ -101,7 +101,7 @@ namespace Soyuz
                 !RocketPrefs.TimeDilation || 
                 Context.CurJobSettings == null || 
                 Context.CurJobSettings.throttleMode == JobThrottleMode.None || 
-                !IncreaseMaxAllowedPacketId.finishedSuccessfully)
+                !IncreaseMaxAllowedPacketId.MultiplayerCameraPatched)
             {
                 _throttledPawn = pawn;
                 _isBeingThrottled = false;

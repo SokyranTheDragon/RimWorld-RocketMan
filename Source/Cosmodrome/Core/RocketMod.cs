@@ -143,6 +143,7 @@ namespace RocketMan
                     }
                 }
                 collapsible_general.CheckboxLabeled("RocketMan.ProgressBar".Translate(), ref RocketPrefs.ShowWarmUpPopup, "RocketMan.ProgressBar.Description".Translate());
+                collapsible_general.CheckboxLabeled("RocketMan.EnableMultiplayerCameraPatches".Translate(), ref RocketPrefs.EnableMultiplayerCameraPatches, "RocketMan.EnableMultiplayerCameraPatches.Description".Translate());
                 collapsible_general.End(ref inRect);
                 inRect.yMin += 5;
 

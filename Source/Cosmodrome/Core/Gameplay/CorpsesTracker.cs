@@ -30,7 +30,7 @@ namespace RocketMan.Gameplay
         {
             if (!RocketPrefs.Enabled) return;
             if (!RocketPrefs.CorpsesRemovalEnabled) return;
-            if (!IncreaseMaxAllowedPacketId.finishedSuccessfully) return;
+            if (!IncreaseMaxAllowedPacketId.MultiplayerCameraPatched) return;
             removalList.Clear();
             int counter = 0;
             if (tick % ScanInterval == 0) FindCorpses();
