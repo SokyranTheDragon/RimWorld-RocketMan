@@ -12,7 +12,13 @@ namespace RocketMan
 {
     public static class MultiplayerCameraLister
     {
-        public record PlayerCameraData(Map CurrentMap, CellRect CameraRect, CameraZoomRange CameraZoom);
+        public record PlayerCameraData(Map CurrentMap, CellRect CameraRect, CameraZoomRange CameraZoom)
+        {
+            public Map CurrentMap { get; } = CurrentMap;
+            public CellRect CameraRect { get; } = CameraRect;
+            public CameraZoomRange CameraZoom { get; } = CameraZoom;
+        }
+
         private static readonly Dictionary<int, PlayerCameraData> PlayerCamerasDictionary = new();
 
         public static IEnumerable<PlayerCameraData> PlayerCameras

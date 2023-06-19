@@ -207,7 +207,11 @@
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="Multiplayer">
-			<HintPath>..\..\..\Multiplayer\Assemblies\Multiplayer.dll</HintPath>
+			<HintPath>..\..\..\Multiplayer\AssembliesCustom\Multiplayer.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="MultiplayerCommon">
+			<HintPath>..\..\..\Multiplayer\AssembliesCustom\MultiplayerCommon.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 	</ItemGroup>	

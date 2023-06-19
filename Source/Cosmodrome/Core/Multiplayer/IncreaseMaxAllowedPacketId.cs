@@ -7,7 +7,7 @@ using Verse;
 
 namespace RocketMan;
 
-[RocketPatch(typeof(ConnectionBase), nameof(ConnectionBase.HandleReceive), parameters = new []{ typeof(int), typeof(int), typeof(ByteReader), typeof(bool) })]
+[RocketPatch(typeof(ConnectionBase), "HandleReceiveMsg", parameters = new []{ typeof(int), typeof(int), typeof(ByteReader), typeof(bool) })]
 public static class IncreaseMaxAllowedPacketId
 {
     public static bool MultiplayerCameraPatched
