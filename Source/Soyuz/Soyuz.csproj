@@ -4,7 +4,7 @@
 		<RootNamespace>Soyuz</RootNamespace>
 		<AssemblyName>Soyuz</AssemblyName>
 		<TargetFramework>net472</TargetFramework>
-		<LangVersion>10.0</LangVersion>
+		<LangVersion>11.0</LangVersion>
 		<PlatformTarget>x64</PlatformTarget>
 		<OutputPath>..\..\..\1.4\Plugins</OutputPath>
 		<Optimize>true</Optimize>

@@ -4,7 +4,7 @@
 		<RootNamespace>RocketMan</RootNamespace>
 		<AssemblyName>Cosmodrome</AssemblyName>
 		<TargetFramework>net472</TargetFramework>
-		<LangVersion>10.0</LangVersion>
+		<LangVersion>11.0</LangVersion>
 		<PlatformTarget>x64</PlatformTarget>
 		<OutputPath>..\..\1.4\Assemblies</OutputPath>
 		<Optimize>true</Optimize>
@@ -18,7 +18,6 @@
 		<Configurations>Release;Debug</Configurations>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<OutputPath>..\..\1.4\Assemblies</OutputPath>
 		<OutputPath>..\..\1.4\Assemblies</OutputPath>
 		<DefineConstants>TRACE;NDEBUG</DefineConstants>
 		<WarningLevel>4</WarningLevel>
@@ -207,14 +206,16 @@
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="Multiplayer">
-			<HintPath>..\..\..\Multiplayer\AssembliesCustom\Multiplayer.dll</HintPath>
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\workshop\content\294100\2606448745\1.4\AssembliesCustom\Multiplayer.dll</HintPath>
+			<!--<HintPath>..\..\..\Multiplayer\AssembliesCustom\Multiplayer.dll</HintPath>-->
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="MultiplayerCommon">
-			<HintPath>..\..\..\Multiplayer\AssembliesCustom\MultiplayerCommon.dll</HintPath>
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\workshop\content\294100\2606448745\1.4\AssembliesCustom\MultiplayerCommon.dll</HintPath>
+			<!--<HintPath>..\..\..\Multiplayer\AssembliesCustom\MultiplayerCommon.dll</HintPath>-->
 			<Private>False</Private>
 		</Reference>
-	</ItemGroup>	
+	</ItemGroup>
 	<PropertyGroup>
 		<TransformOnBuild>false</TransformOnBuild>
 	</PropertyGroup>
