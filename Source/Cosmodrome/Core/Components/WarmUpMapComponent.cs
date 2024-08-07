@@ -53,7 +53,7 @@ namespace RocketMan
 
         public bool Expired
         {
-            get => Progress == 1.0f;
+            get => Progress >= 1.0f;
         }
 
         public static WarmUpMapComponent current;
@@ -97,22 +97,28 @@ namespace RocketMan
         {
             base.MapComponentTick();
 
-            var tick = map.AsyncTime() is { } comp
-                ? comp.mapTicks
-                : GenTicks.TicksGame;
-
-            if (finished && tick == integrityGameTick)
-            {
-                RocketMan.Logger.Message("ROCKETMAN: Position verfication started!");
-                PopPawnsPosition();
-                if (RocketPrefs.PauseAfterWarmup && !Find.TickManager.Paused)
-                    Find.TickManager.Pause();
-            }
+            var tick = map.AsyncTime()?.mapTicks ?? GenTicks.TicksGame;
 
             if (finished)
+            {
+                if (tick == integrityGameTick)
+                {
+                    RocketMan.Logger.Message("ROCKETMAN: Position verfication started!");
+                    PopPawnsPosition();
+                    if (RocketPrefs.PauseAfterWarmup && !Find.TickManager.Paused)
+                        Find.TickManager.Pause();
+                }
+
                 return;
+            }
             if (!started)
                 return;
+
+            // Fix the async time issue where starting time would be ahead of actual one
+            // due to AsyncTime() call returning null early during init.
+            if (startingTicksGame > tick)
+                startingTicksGame = tick;
+
             if ((tick + 1 - startingTicksGame).TicksToSeconds() >= WARMUP_TIME)
             {
                 integrityGameTick = tick + 3;
@@ -159,9 +165,6 @@ namespace RocketMan
 
         private void Initialize()
         {
-            int tick = map.AsyncTime() is { } comp
-                ? comp.mapTicks
-                : GenTicks.TicksGame;;
             if (!started)
             {
                 if (settingsBeingStashed)
@@ -170,7 +173,8 @@ namespace RocketMan
                 warmUpsCount++;
                 current = this;
                 started = true;
-                startingTicksGame = tick;
+                // Async time can be null at this point
+                startingTicksGame = map.AsyncTime()?.mapTicks ?? GenTicks.TicksGame;;
                 RocketMan.Logger.Message("ROCKETMAN: <color=red>Warm up</color> started for new map!");
             }
         }
