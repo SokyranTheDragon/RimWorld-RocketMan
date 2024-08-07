@@ -31,7 +31,7 @@
 		<NoStdLib>true</NoStdLib>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Krafs.Rimworld.Ref" Version="1.5.4066" GeneratePathProperty="true" />
+		<PackageReference Include="Krafs.Rimworld.Ref" Version="1.5.4104" GeneratePathProperty="true" />
 		<PackageReference Include="Lib.Harmony" Version="2.3.3" ExcludeAssets="runtime" />
 		<PackageReference Include="TaskPubliciser" Version="1.0.3" />
 		<PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.4" />
