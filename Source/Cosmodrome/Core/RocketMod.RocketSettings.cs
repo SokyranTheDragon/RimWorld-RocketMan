@@ -139,7 +139,9 @@ namespace RocketMan
                 Scribe_Values.Look(ref RocketPrefs.DisableForcedSlowdowns, "disableForcedSlowdowns", false);
                 Scribe_Values.Look(ref RocketPrefs.TranslationCaching, "translationCaching", false);
                 Scribe_Values.Look(ref RocketPrefs.GlowGridOptimization, "GlowGridOptimization", true);
-                Scribe_Values.Look(ref RocketPrefs.GlowGridOptimizationLimiter, "GlowGridOptimizationLimiter", true);               
+                Scribe_Values.Look(ref RocketPrefs.GlowGridOptimizationLimiter, "GlowGridOptimizationLimiter", true);  
+                
+                Scribe_Values.Look(ref RocketPrefs.EnableMultiplayerCameraPatches, "EnableMultiplayerCameraPatches", true);
                 
                 if (!RocketEnvironmentInfo.IsDevEnv)
                     RocketPrefs.TimeDilationColonists = false;
