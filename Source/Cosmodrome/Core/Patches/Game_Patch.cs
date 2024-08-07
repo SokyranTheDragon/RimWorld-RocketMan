@@ -15,7 +15,7 @@ namespace RocketMan.Patches
         }
     }
 
-    [RocketStartupPatch(typeof(Game), nameof(Game.DeinitAndRemoveMap_NewTemp))]
+    [RocketStartupPatch(typeof(Game), nameof(Game.DeinitAndRemoveMap))]
     public static class Game_DeinitAndRemoveMap_Patch
     {
         [HarmonyPriority(int.MinValue)]
