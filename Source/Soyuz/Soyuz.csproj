@@ -15,8 +15,7 @@
 		<Configurations>Release;Debug</Configurations>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<DebugType>
-		</DebugType>
+		<DebugType>pdbonly</DebugType>
 		<OutputPath>..\..\1.5\Plugins\Stable</OutputPath>
 		<DefineConstants>TRACE;NDEBUG</DefineConstants>
 		<WarningLevel>4</WarningLevel>
