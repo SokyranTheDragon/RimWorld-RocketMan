@@ -46,6 +46,8 @@
 	<RocketMan.ProgressBar>Show warmup progress bar on startup</RocketMan.ProgressBar>
 	<RocketMan.ProgressBar.Pause>Pause after warmup</RocketMan.ProgressBar.Pause>
 	<RocketMan.ProgressBar.Description>This will show a warmup progress bar when you load a new map.</RocketMan.ProgressBar.Description>
+	<RocketMan.EnableMultiplayerCameraPatches>Enable Multiplayer camera patches</RocketMan.EnableMultiplayerCameraPatches>
+	<RocketMan.EnableMultiplayerCameraPatches.Description>If disabled, this will disable sharing of camera data and disable camera related features</RocketMan.EnableMultiplayerCameraPatches.Description>
 	<RocketMan.Junk>Junk</RocketMan.Junk>
 	<RocketMan.CorpseRemoval>Enable automatic corpses removal.</RocketMan.CorpseRemoval>
 	<RocketMan.CorpseRemoval.Description>This removes corpses that aren't in view for a while and that aren't near your base to avoid breaking the game balance.</RocketMan.CorpseRemoval.Description>
