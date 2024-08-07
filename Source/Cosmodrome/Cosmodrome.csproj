@@ -31,7 +31,8 @@
 	<ItemGroup>
 		<PackageReference Include="Krafs.Rimworld.Ref" Version="1.5.4104" GeneratePathProperty="true" />
 		<PackageReference Include="Mono.TextTransform" Version="1.0.0" GeneratePathProperty="true" ExcludeAssets="runtime" />
-		<PackageReference Include="Lib.Harmony" Version="2.3.3" ExcludeAssets="runtime" />		
+		<PackageReference Include="Lib.Harmony" Version="2.3.3" ExcludeAssets="runtime" />
+		<PackageReference Include="RimWorld.MultiplayerAPI" Version="0.5.0" />
 		<PackageReference Include="TaskPubliciser" Version="1.0.3" />
 		<PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.4" />
 		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net472" Version="1.0.3">
@@ -168,6 +169,16 @@
 	<ItemGroup>
 		<Reference Include="BCnEncoderNet47">
 			<HintPath>..\BCnEncoder\BCnEncoderNet47.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Multiplayer">
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\workshop\content\294100\2606448745\1.5\AssembliesCustom\Multiplayer.dll</HintPath>
+			<!--<HintPath>..\..\..\Multiplayer\AssembliesCustom\Multiplayer.dll</HintPath>-->
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="MultiplayerCommon">
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\workshop\content\294100\2606448745\1.5\AssembliesCustom\MultiplayerCommon.dll</HintPath>
+			<!--<HintPath>..\..\..\Multiplayer\AssembliesCustom\MultiplayerCommon.dll</HintPath>-->
 			<Private>False</Private>
 		</Reference>
 	</ItemGroup>	
