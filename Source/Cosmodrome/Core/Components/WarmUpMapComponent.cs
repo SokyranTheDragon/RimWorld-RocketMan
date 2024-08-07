@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using Multiplayer.Client;
 using UnityEngine;
 using Verse;
-using Verse.AI.Group;
 
 namespace RocketMan
 {
@@ -96,28 +96,35 @@ namespace RocketMan
         public override void MapComponentTick()
         {
             base.MapComponentTick();
-            if (finished && GenTicks.TicksGame == integrityGameTick)
+
+            var tick = map.AsyncTime() is { } comp
+                ? comp.mapTicks
+                : GenTicks.TicksGame;
+
+            if (finished && tick == integrityGameTick)
             {
                 RocketMan.Logger.Message("ROCKETMAN: Position verfication started!");
                 PopPawnsPosition();
                 if (RocketPrefs.PauseAfterWarmup && !Find.TickManager.Paused)
                     Find.TickManager.Pause();
             }
+
             if (finished)
                 return;
             if (!started)
                 return;
-            int tick = GenTicks.TicksGame;
             if ((tick + 1 - startingTicksGame).TicksToSeconds() >= WARMUP_TIME)
             {
                 integrityGameTick = tick + 3;
                 StashPawnsPosition();
             }
+
             if ((tick - startingTicksGame).TicksToSeconds() < WARMUP_TIME)
             {
                 ticksPassed++;
                 return;
             }
+
             finished = true;
             current = null;
             PopSettings();
@@ -152,7 +159,9 @@ namespace RocketMan
 
         private void Initialize()
         {
-            int tick = GenTicks.TicksGame;
+            int tick = map.AsyncTime() is { } comp
+                ? comp.mapTicks
+                : GenTicks.TicksGame;;
             if (!started)
             {
                 if (settingsBeingStashed)
@@ -177,8 +186,8 @@ namespace RocketMan
                 progressRect.xMax -= 25;
                 GUIFont.Font = GUIFontSize.Small;
                 GUIFont.Anchor = TextAnchor.MiddleCenter;
-                Widgets.Label(textRect.TopPart(0.6f), (Find.TickManager?.Paused ?? false) ?
-                    KeyedResources.RocketMan_Unpause : "<color=orange>" + KeyedResources.RocketMan_RocketMan + "</color> " + KeyedResources.RocketMan_Warming);
+                Widgets.Label(textRect.TopPart(0.6f),
+                    (Find.TickManager?.Paused ?? false) ? KeyedResources.RocketMan_Unpause : "<color=orange>" + KeyedResources.RocketMan_RocketMan + "</color> " + KeyedResources.RocketMan_Warming);
                 GUIFont.Font = GUIFontSize.Tiny;
                 Widgets.Label(textRect.BottomPart(0.4f), KeyedResources.RocketMan_HideProgressBar);
                 DoProgressBar(progressRect);
@@ -259,6 +268,7 @@ namespace RocketMan
                     pawn.Position = stashedPosition;
                 }
             }
+
             positionStash.Clear();
         }
 

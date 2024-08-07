@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using Multiplayer.API;
 using RimWorld;
-using RimWorld.Planet;
 using RocketMan;
-using Soyuz.Profiling;
 using UnityEngine;
 using Verse;
 
 namespace Soyuz
 {
-
     public static partial class ContextualExtensions
     {
         private static Pawn _pawnTick;
@@ -21,37 +19,48 @@ namespace Soyuz
 
         private static readonly int[] _transformationCache = new int[TransformationCacheSize];
         private static readonly Dictionary<int, int> timers = new Dictionary<int, int>();
-       
-        private static int DilationRateOnScreen
+
+        [Main.OnWorldLoaded]
+        private static void CleanData()
         {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get
-            {                
-                switch (Context.ZoomRange)
-                {
-                    default:
-                        return 1;
-                    case CameraZoomRange.Closest:
-                        return 2;
-                    case CameraZoomRange.Close:
-                        return 3;
-                    case CameraZoomRange.Middle:
-                        return (int) (25 * Context.Settings.dilationFactorOnscreen);
-                    case CameraZoomRange.Far:
-                        return (int) (30 * Context.Settings.dilationFactorOnscreen);
-                    case CameraZoomRange.Furthest:
-                        return (int) (35 * Context.Settings.dilationFactorOnscreen);
-                }                
+            Reset();
+            timers.Clear();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static int DilationRateOnScreen(IntVec3 pos, Map map)
+        {
+            var lowestZoom = CameraZoomRange.Furthest;
+
+            foreach (var cameraData in MultiplayerCameraLister.PlayerCameras)
+            {
+                if (cameraData.CameraZoom >= lowestZoom)
+                    continue;
+
+                if (cameraData.CurrentMap != map)
+                    continue;
+
+                if (!cameraData.CameraRect.Contains(pos))
+                    continue;
+
+                lowestZoom = cameraData.CameraZoom;
             }
+
+            return lowestZoom switch
+            {
+                CameraZoomRange.Closest => 2,
+                CameraZoomRange.Close => 3,
+                CameraZoomRange.Middle => (int)(25 * Context.Settings.dilationFactorOnscreen),
+                CameraZoomRange.Far => (int)(30 * Context.Settings.dilationFactorOnscreen),
+                CameraZoomRange.Furthest => (int)(35 * Context.Settings.dilationFactorOnscreen),
+                _ => 1
+            };
         }
 
         private static int DilationRateOffScreen
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get
-            {
-                return (int) (45 * Context.Settings.dilationFactorOffscreen);
-            }
+            get { return (int)(45 * Context.Settings.dilationFactorOffscreen); }
         }
 
         public static Pawn Current
@@ -88,7 +97,11 @@ namespace Soyuz
             _finilizePhase = false;
             _pawnTick = pawn;
 
-            if (!RocketPrefs.Enabled || !RocketPrefs.TimeDilation || Context.CurJobSettings == null || Context.CurJobSettings.throttleMode == JobThrottleMode.None)
+            if (!RocketPrefs.Enabled || 
+                !RocketPrefs.TimeDilation || 
+                Context.CurJobSettings == null || 
+                Context.CurJobSettings.throttleMode == JobThrottleMode.None || 
+                !IncreaseMaxAllowedPacketId.MultiplayerCameraPatched)
             {
                 _throttledPawn = pawn;
                 _isBeingThrottled = false;
@@ -116,13 +129,12 @@ namespace Soyuz
 
             try
             {
-                if (true
-                    && Prefs.DevMode
-                    && RocketDebugPrefs.Debug
-                    && RocketDebugPrefs.LogData
-                    && RocketEnvironmentInfo.IsDevEnv
-                    && Time.frameCount - RocketStates.LastFrame < 60
-                    && pawn == Context.ProfiledPawn)
+                if (Prefs.DevMode && 
+                    RocketDebugPrefs.Debug && 
+                    RocketDebugPrefs.LogData && 
+                    RocketEnvironmentInfo.IsDevEnv && 
+                    Time.frameCount - RocketStates.LastFrame < 60 && 
+                    pawn == Context.ProfiledPawn)
                 {
                     UpdateModels(pawn);
                 }
@@ -161,6 +173,7 @@ namespace Soyuz
                 //    return WorldPawnsTicker.IsCustomWorldTickInterval(thing, interval);
                 return (thing.thingIDNumber + GenTicks.TicksGame) % RoundTransform(interval) == 0;
             }
+
             return (thing.thingIDNumber + GenTicks.TicksGame) % interval == 0;
         }
 
@@ -185,17 +198,16 @@ namespace Soyuz
                 return !(_finilizePhase = false);
 
             int tick = GenTicks.TicksGame;
-            if (false
-                || (pawn.thingIDNumber + tick) % 30 == 0
-                || (tick % 250 == 0)
-                || (tick % 103 == 0)
-                || (pawn.jobs?.curJob?.expiryInterval > 0 && (tick - pawn.jobs.curJob.startTick) % (pawn.jobs.curJob.expiryInterval) == 0))
+            if ((pawn.thingIDNumber + tick) % 30 == 0 ||
+                (tick % 250 == 0) ||
+                (tick % 103 == 0) ||
+                (pawn.jobs?.curJob?.expiryInterval > 0 && (tick - pawn.jobs.curJob.startTick) % (pawn.jobs.curJob.expiryInterval) == 0))
                 return true;
 
             if (Context.DilationFastMovingRace[pawn.def.index])
                 return (pawn.thingIDNumber + tick) % 2 == 0;
 
-            return !pawn.OffScreen() ? ((pawn.thingIDNumber + tick) % DilationRateOnScreen == 0) : ((pawn.thingIDNumber + tick) % DilationRateOffScreen == 0);
+            return !pawn.OffScreen() ? ((pawn.thingIDNumber + tick) % DilationRateOnScreen(pawn.Position, pawn.Map) == 0) : ((pawn.thingIDNumber + tick) % DilationRateOffScreen == 0);
         }
 
         private static Pawn _pawnScreen;
@@ -211,7 +223,21 @@ namespace Soyuz
                 return false;
 
             _pawnScreen = pawn;
-            _offScreen = !Context.CurViewRect.Contains(pawn.positionInt) || RocketDebugPrefs.AlwaysDilating;
+            if (RocketDebugPrefs.AlwaysDilating)
+                _offScreen = true;
+            else
+            {
+                _offScreen = true;
+
+                foreach (var camera in MultiplayerCameraLister.PlayerCameras)
+                {
+                    if (camera.CameraRect.Contains(pawn.Position))
+                    {
+                        _offScreen = false;
+                        break;
+                    }
+                }
+            }
 
             return _offScreen;
         }
@@ -235,6 +261,7 @@ namespace Soyuz
 
                 return _isBeingThrottled;
             }
+
             return false;
         }
 
@@ -244,8 +271,8 @@ namespace Soyuz
                 return false;
             //if (WorldPawnsTicker.isActive)
             // return RocketPrefs.TimeDilationWorldPawns && !pawn.IsCaravanMember() && pawn.Faction != Faction.OfPlayer && pawn.HostFaction != Faction.OfPlayer && !HasHediffPreventingThrottling(pawn);
-            if ((Context.ZoomRange == CameraZoomRange.Close || Context.ZoomRange == CameraZoomRange.Close) && !pawn.OffScreen())
-                return false;            
+            if (MultiplayerCameraLister.PlayerCameras.Any(c => c.CurrentMap == pawn.Map && c.CameraZoom is CameraZoomRange.Closest or CameraZoomRange.Close) && !pawn.OffScreen())
+                return false;
 
             if (!(!RocketPrefs.TimeDilationCriticalHediffs && HasHediffPreventingThrottling(pawn)) && !IgnoreMeDatabase.ShouldIgnore(pawn.def))
             {
@@ -256,6 +283,7 @@ namespace Soyuz
                 if (pawn.def.race.Animal)
                     return Context.DilationEnabled[pawn.def.index] && IsValidAnimal(pawn);
             }
+
             return false;
         }
 

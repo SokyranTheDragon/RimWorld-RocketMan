@@ -11,3 +11,10 @@ Source/.mfractor/
 *.pdb
 *.vs
 .DS_Store
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# RimPy generated DDS files
+*.dds

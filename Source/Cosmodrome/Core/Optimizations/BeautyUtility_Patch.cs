@@ -27,7 +27,7 @@ namespace RocketMan.Patches
 
             static int GetSampleNumCells()
             {
-                if (!RocketPrefs.Enabled || !RocketPrefs.FixBeauty || curPawn == null || curPawn.pather == null)
+                if (!RocketPrefs.Enabled || !RocketPrefs.FixBeauty || curPawn?.pather == null)
                 {
                     return BeautyUtility.SampleNumCells_Beauty;
                 }
@@ -35,7 +35,7 @@ namespace RocketMan.Patches
                 {
                     return MinSampleNumCells;
                 }
-                return Mathf.CeilToInt(Mathf.Lerp(MinSampleNumCells, MaxSampleNumCells, (GenTicks.TicksGame - curPawn.pather.lastMovedTick) / 60));
+                return Mathf.CeilToInt(Mathf.Lerp(MinSampleNumCells, MaxSampleNumCells, (GenTicks.TicksGame - curPawn.pather.lastMovedTick) / 60f));
             }
 
             public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
