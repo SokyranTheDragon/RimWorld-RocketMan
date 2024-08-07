@@ -79,7 +79,6 @@
 		<None Remove="BCnEncoder.NET.ImageSharp" />
 		<None Remove="SixLabors.ImageSharp" />
 		<None Remove="Microsoft.Toolkit.HighPerformance" />
-		<None Remove="BCnEncoderNet45" />
 		<None Remove="System.Numerics.Vectors" />
 		<None Remove="System.Buffers" />
 		<None Remove="System.Memory" />
@@ -167,9 +166,10 @@
 	<!-- Work around to generate T4 files on Mac -->
 	
 	<ItemGroup>
-		<Reference Include="BCnEncoderNet45">
-			<HintPath>..\BCnEncoder\BCnEncoderNet45.dll</HintPath>
-		</Reference>		
+		<Reference Include="BCnEncoderNet47">
+			<HintPath>..\BCnEncoder\BCnEncoderNet47.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
 	</ItemGroup>	
 	<PropertyGroup>
 		<TransformOnBuild>false</TransformOnBuild>

@@ -70,7 +70,6 @@
 		<None Remove="Core\Troubleshooting\" />
 		<None Remove="XMLDiffPatch" />
 		<None Remove="BCnEncoder" />
-		<None Remove="BCnEncoderNet45" />
 		<None Remove="System.Numerics.Vectors" />
 		<None Remove="SixLabors.ImageSharp" />
 		<None Remove="System.Drawing" />
@@ -93,9 +92,6 @@
 		<Compile Remove="Core\Deprecated\DefXmlHelper.cs" />
 	</ItemGroup>
 	<ItemGroup>
-		<Reference Include="BCnEncoderNet45">
-			<HintPath>..\BCnEncoder\BCnEncoderNet45.dll</HintPath>
-		</Reference>
 		<Reference Include="BCnEncoderNet47">
 			<HintPath>..\BCnEncoder\BCnEncoderNet47.dll</HintPath>
 			<Private>False</Private>
