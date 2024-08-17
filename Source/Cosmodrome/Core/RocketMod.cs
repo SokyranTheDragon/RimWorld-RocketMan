@@ -201,11 +201,11 @@ namespace RocketMan
                     }
 
                     collapsible_other.Begin(inRect, "RocketMan.StatCacheSettings".Translate());
-                    
 
-                    collapsible_other.CheckboxLabeled("RocketMan.Adaptive".Translate(), ref RocketPrefs.Learning, "RocketMan.Adaptive.Description".Translate());
-                    collapsible_other.CheckboxLabeled("RocketMan.AdaptiveAlert.Label".Translate(), ref RocketPrefs.LearningAlertEnabled, "RocketMan.AdaptiveAlert.Description".Translate());                    
-                    collapsible_other.CheckboxLabeled("RocketMan.EnableGearStatCaching".Translate(), ref RocketPrefs.StatGearCachingEnabled);
+
+                    collapsible_other.CheckboxLabeled("RocketMan.Adaptive".Translate(), ref RocketPrefs.Learning, "RocketMan.Adaptive.Description".Translate(), disabled: true);
+                    collapsible_other.CheckboxLabeled("RocketMan.AdaptiveAlert.Label".Translate(), ref RocketPrefs.LearningAlertEnabled, "RocketMan.AdaptiveAlert.Description".Translate(), disabled: true);
+                    collapsible_other.CheckboxLabeled("RocketMan.EnableGearStatCaching".Translate(), ref RocketPrefs.StatGearCachingEnabled, disabled: true);
                     collapsible_other.Line(1);
                     collapsible_other.CheckboxLabeled(KeyedResources.RocketMan_FixBeauty, ref RocketPrefs.FixBeauty, KeyedResources.RocketMan_FixBeauty_Tip);
                     collapsible_other.End(ref inRect);
