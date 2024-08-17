@@ -128,6 +128,8 @@ namespace RocketMan
             // --------------
             // rewrite the updated settings
             RocketMod.Instance.WriteSettings();
+            // Cleanup MP unnatural corpse patch
+            UnnaturalCorpseMultiplayerCameraPatch.CleanupPatches();
         }
 
         private static BucketActionTicker[] _tickers;
