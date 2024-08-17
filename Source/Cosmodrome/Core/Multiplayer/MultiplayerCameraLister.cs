@@ -12,7 +12,7 @@ namespace RocketMan
 {
     public static class MultiplayerCameraLister
     {
-        public record PlayerCameraData(Map CurrentMap, CellRect CameraRect, CameraZoomRange CameraZoom)
+        public readonly record struct PlayerCameraData(Map CurrentMap, CellRect CameraRect, CameraZoomRange CameraZoom)
         {
             public Map CurrentMap { get; } = CurrentMap;
             public CellRect CameraRect { get; } = CameraRect;
